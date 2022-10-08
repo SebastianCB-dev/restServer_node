@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import { check } from 'express-validator';
+
 import { usersDELETE, 
          usersGET, 
          usersPATCH, 
@@ -11,7 +13,9 @@ router.get('/', usersGET);
 
 router.put('/:id', usersPUT);
 
-router.post('/', usersPOST);
+router.post('/', [
+  check('email', 'The email address of the user is not valid').isEmail()
+], usersPOST);
 
 router.delete('/', usersDELETE);
 
